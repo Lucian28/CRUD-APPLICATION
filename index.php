@@ -50,15 +50,42 @@ try{
 catch(PDOException $e){
     echo $e->getMessage();
 }
+$exista=0;
+if(isset($_POST['inserare']))
+{
+    $stmt = $DHB->query('SELECT * FROM Soldat');
+    while ($row = $stmt->fetch())
+    {
+        $aux=$row['idSoldat'];
+        if($_POST['id_soldat']==$aux)
+        $exista=1;
+    }
 
-if(isset($_POST['inserare'])){
+if($exista==0)
+{
    $statement="INSERT INTO Soldat (idSoldat,Nume,Prenume,id_regiment,id_disponibilate,id_cazarma) values (?,?,?,?,?,?)";
    $stmt = $DHB->prepare($statement);
-   $stmt->execute([$_POST['id_soldat'],$_POST['Nume'],$_POST['Prenume'],$_POST['id_regiment'],$_POST['id_disponibilitate'], $_POST['cazarma']]);   
+$stmt->execute([$_POST['id_soldat'],$_POST['Nume'],$_POST['Prenume'],$_POST['id_regiment'],$_POST['id_disponibilitate'], $_POST['cazarma']]);   
 
 
 }
+else
+ {
+    // $statement="UPDATE Soldat  SET idSoldat=$_POST[id_soldat],Nume=$_POST[Nume],Prenume=$_POST[Prenume],id_regiment=$_POST[id_regiment],id_disponibilate=$_POST[id_disponibilitate],id_cazarma=$_POST[cazarma]
+    //  WHERE idSoldat=$_POST[id_soldat]";
+    // $stmt = $DHB->prepare($statement);
 
+    $sql = "UPDATE Soldat SET  Nume = :Nume, Prenume=:Prenume, id_regiment=:id_regiment, id_disponibilate=:id_disponibilate,id_cazarma=:id_cazarma WHERE idSoldat= :idSoldat";
+$query = $DHB->prepare($sql);
+$result = $query->execute(array(':Nume' => $_POST['Nume'],
+ ':Prenume' => $_POST['Prenume'], 
+ ':id_regiment'=>$_POST['id_regiment'],
+ ':id_disponibilate'=>$_POST['id_disponibilitate'],
+ ':id_cazarma'=>$_POST['cazarma'], ':idSoldat'=>$_POST['id_soldat'] ));
+
+ }
+ 
+}
 
 for($i=0;$i<9999;$i++)
 if(isset($_POST[$i]))
@@ -70,8 +97,7 @@ if(isset($_POST[$i]))
          $q->execute(['idSoldat' => $i]);
       
    }
-else if($_POST[$i]=='Modificare')
-echo "Vreau sa modific randul $i"; 
+
 
 
 $stmt = $DHB->query('SELECT * FROM Soldat');
@@ -132,6 +158,7 @@ while ($row = $stmt->fetch())
         class="btn btn-success" value="inserare" /> 
     </form>
 </div>
+
 
 
 
