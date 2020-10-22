@@ -112,8 +112,7 @@ echo   "<th> Prenume      </th>";
 echo  "<th> id_regiment   </th>";
 echo  "<th> id_disponibilitate</th>";
 echo   "<th> id_cazarma     </th>";
-echo   "<th> STERGERE    </th>";
-echo   "<th> MODIFICARE    </th>"."</tr>";
+echo   "<th> STERGERE    </th></tr>";
 
 while ($row = $stmt->fetch())
 { echo "<tr>";
@@ -125,7 +124,7 @@ while ($row = $stmt->fetch())
     echo "<td>".$row['id_disponibilate']."</td>";
     echo "<td>".$row['id_cazarma']."</td>";
     echo "<td>"."<form method='post'><input type='submit' name=$aux class='btn btn-danger' value='Stergere'"."</tr>";
-    echo "<td>"."<form method='post'><input type='submit' name=$aux class='btn btn-info' value='Modificare'"."</tr>";
+    
 
 }
 
