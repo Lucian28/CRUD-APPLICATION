@@ -44,7 +44,8 @@ $host="remotemysql.com";
 $dbname="jYX1nRpODt";
 $user="jYX1nRpODt";
 // $pass="2NXrRAgEnH";
-  $pass="kldso65y4q";
+//   $pass="kldso65y4q";
+  $pass="H9CbxomlYS";
 try{
     $DHB= new PDO("mysql:host=$host;dbname=$dbname",$user,$pass);
 }
